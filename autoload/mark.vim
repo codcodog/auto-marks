@@ -17,12 +17,22 @@ endfunction
 " generate all upper mark names that are not used.
 function! s:getMarkNameList()
     let markedList = s:getMarkedList()
+    let uppersName = s:generateUpperMarkName()
+    let upperNameList = []
+    for markName in uppersName
+        if !s:inList(markName, markedList)
+            call add(upperNameList, markName)
+        endif
+    endfor
+    return upperNameList
+endfunction
+
+" generate all upper name, A-Z
+function! s:generateUpperMarkName()
     let upperNameList = []
     for n in range(char2nr('A'), char2nr('Z'))
         let markName = nr2char(n)
-        if !s:inList(markName, markedList)
-            call add(upperNameList, nr2char(n))
-        endif
+        call add(upperNameList, markName)
     endfor
     return upperNameList
 endfunction
@@ -57,12 +67,41 @@ function! s:info(msg)
     echohl None
 endfunction
 
-" auto set mark
+" echo warning message
+function! s:warn(msg)
+    echohl WarningMsg
+    echom a:msg
+    echohl None
+endfunction
+
+" auto set a mark
 function! mark#SetMark()
     let markName = s:getMarkName()
     silent! execute 'mark '.markName
-    let msg = "Auto Marks ".markName
+    let msg = "Auto Mark ".markName
     call s:info(msg)
+endfunction
+
+" marks A-Z
+function! mark#Marks()
+    let nameList = s:generateUpperMarkName()
+    let arg = join(nameList, '')
+    try
+        execute 'marks '.arg
+    catch
+        call s:warn("No Marks")
+    endtry
+endfunction
+
+" delete marks A-Z
+function! mark#DelMarks()
+    let nameList = s:generateUpperMarkName()
+    let arg = join(nameList, '')
+    try
+        silent! execute 'delmarks '.arg
+    finally
+        call s:info("Marks Deleted")
+    endtry
 endfunction
 
 let &cpo = s:cpo_save
