@@ -7,10 +7,10 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 " commands
-command! AutoMark call mark#SetMark()
-command! Marks call mark#Marks()
-command! DelMarks call mark#DelMarks()
-command! Debug call mark#Hello()
+command! -bang AutoMark call mark#SetMark()
+command! -bang Marks call mark#Marks()
+command! -bang DelMarks call mark#DelMarks()
+command! -bang Debug call mark#Hello()
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

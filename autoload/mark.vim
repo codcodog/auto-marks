@@ -7,7 +7,7 @@ endfunction
 
 " get a mark name
 function! s:getMarkName()
-    let nameList = s:getMarkNameList()
+    let nameList = s:getUpperNameList()
     if len(nameList) == 0
         return 'A'
     endif
@@ -15,7 +15,7 @@ function! s:getMarkName()
 endfunction
 
 " generate all upper mark names that are not used.
-function! s:getMarkNameList()
+function! s:getUpperNameList()
     let markedList = s:getMarkedList()
     let uppersName = s:generateUpperMarkName()
     let upperNameList = []
@@ -37,6 +37,16 @@ function! s:generateUpperMarkName()
     return upperNameList
 endfunction
 
+" get marked name list
+function! s:getMarkedList()
+    let marks = getmarklist()
+    let markList = []
+    for mark in marks
+        call add(markList, mark['mark'][1:])
+    endfor
+    return markList
+endfunction
+
 " check if an element in list
 function! s:inList(element, list)
     if len(a:list) == 0
@@ -48,16 +58,6 @@ function! s:inList(element, list)
         endif
     endfor
     return 0
-endfunction
-
-" get marked name list
-function! s:getMarkedList()
-    let marks = getmarklist()
-    let markList = []
-    for mark in marks
-        call add(markList, mark['mark'][1:])
-    endfor
-    return markList
 endfunction
 
 " echo info message
