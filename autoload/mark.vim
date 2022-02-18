@@ -1,10 +1,6 @@
 let s:cpo_save = &cpo
 set cpo&vim
 
-function! mark#Hello()
-    echo 'hello, auto marks'
-endfunction
-
 " get a mark name
 function! s:getMarkName()
     let nameList = s:getUpperNameList()
