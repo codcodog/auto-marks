@@ -33,9 +33,31 @@ function! s:generateUpperMarkName()
     return upperNameList
 endfunction
 
+" backward getmarklist
+if exists('*getmarklist')
+    let s:getmarklist = function("getmarklist")
+else
+    function! s:getmarklist()
+        redir => markList
+        silent! marks
+        redir END
+
+        let resp = []
+        let list = split(markList, "\n")
+        if len(list) > 1
+            for value in list
+                let markName = value[1]
+                let markDict = {'mark': "'".markName}
+                call add(resp, markDict)
+            endfor
+        endif
+        return resp
+    endfunction
+endif
+
 " get marked name list
 function! s:getMarkedList()
-    let marks = getmarklist()
+    let marks = s:getmarklist()
     let markList = []
     for mark in marks
         call add(markList, mark['mark'][1:])
