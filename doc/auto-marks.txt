@@ -1,0 +1,33 @@
+Maintainer: h2O <codcodog@gmail.com>
+Description: auto-marks
+License: Vim License (see :help license)
+Website: https://github.com/codcodog/auto-marks
+
+Help on using auto-marks                           *auto-marks*
+
+1. Introduction                         |introduction|
+2. Usage                                |usage|
+
+==============================================================================
+ 1. INTRODUCTION                               *introduction*
+
+auto-marks - is a mark generator, which auto set a mark to {A-Z}.
+
+Platform:
+    *nix platforms.
+    If you are on windows platform, there might be some weird bugs.
+
+==============================================================================
+ 2. USAGE                                      *usage*
+
+                                               *AutoMark*
+:AutoMark
+    Auto set a mark to {A-Z}.
+                                               *Marks*
+:Marks
+    List all the current marks of {A-Z}.
+                                               *DelMarks*
+:DelMarks
+    Delete all marks of {A-Z}.
+
+ vim:tw=78:ts=4:ft=help:norl:
